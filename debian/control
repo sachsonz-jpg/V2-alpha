@@ -1,0 +1,15 @@
+Source: v2-alpha-desktop
+Section: themes
+Priority: optional
+Maintainer: sachsonz-jpg <>
+Build-Depends: debhelper (>= 13)
+Standards-Version: 4.6.0
+Homepage: https://example.com/v2-alpha
+
+Package: v2-alpha-theme
+Architecture: all
+Depends: ${misc:Depends}
+Description: V2-alpha Studio system theme (GTK4 / GNOME shell / icons)
+ A minimalist, premium, artist-focused monochrome theme designed for the V2-alpha
+ studio distribution. Includes GTK4 styles, optional GNOME Shell CSS, icon set,
+ wallpapers, and GSettings schemas for theme defaults.

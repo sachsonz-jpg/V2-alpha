@@ -1,0 +1,7 @@
+# Map build outputs into package filesystem
+build/themes/V2-alpha/* usr/share/themes/V2-alpha/
+build/icons/V2-alpha/* usr/share/icons/V2-alpha/
+build/backgrounds/* usr/share/backgrounds/V2-alpha/
+build/schemas/org.v2alpha.gschema.xml usr/share/glib-2.0/schemas/
+build/wayland-sessions/v2-alpha.desktop usr/share/wayland-sessions/
+build/autostart/v2-alpha-dock.desktop etc/xdg/autostart/

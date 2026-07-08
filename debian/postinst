@@ -1,0 +1,30 @@
+#!/bin/sh
+set -e
+
+# Post-install: compile schemas and update icon caches
+SCHEMADIR=/usr/share/glib-2.0/schemas
+ICONDIR=/usr/share/icons
+THEMENAME=V2-alpha
+
+# Compile GSettings schemas
+if [ -x /usr/bin/glib-compile-schemas ] && [ -d "$SCHEMADIR" ]; then
+  echo "Compiling GSettings schemas..."
+  /usr/bin/glib-compile-schemas "$SCHEMADIR"
+fi
+
+# Update icon caches for installed icon themes
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  for d in "$ICONDIR"/*; do
+    if [ -d "$d" ] && [ "$(basename "$d")" = "$THEMENAME" ]; then
+      echo "Updating icon cache for $(basename "$d")..."
+      /usr/bin/gtk-update-icon-cache -f -t "$d" || true
+    fi
+  done
+fi
+
+# Optionally update the GTK icon cache if tool exists
+if command -v update-icon-caches >/dev/null 2>&1; then
+  update-icon-caches || true
+fi
+
+exit 0

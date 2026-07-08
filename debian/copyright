@@ -1,0 +1,21 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: V2-alpha Studio Theme
+Source: https://example.com/v2-alpha
+
+Files: *
+Copyright: 2026 sachsonz-jpg
+License: CC-BY-4.0 or MIT (choose one and replace)
+ This package contains design assets and theme code. See individual files
+ inside the build/ directory for additional license detail (icons, wallpapers).
+
+Files: build/icons/V2-alpha/*
+Copyright: 2026 sachsonz-jpg
+License: CC-BY-4.0
+
+Files: build/backgrounds/*
+Copyright: 2026 sachsonz-jpg
+License: CC-BY-4.0
+
+Files: build/schemas/*
+Copyright: 2026 sachsonz-jpg
+License: MIT

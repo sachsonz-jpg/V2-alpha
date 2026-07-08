@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+# Pre-removal: attempt to refresh icon caches / schemas to avoid stale state
+SCHEMADIR=/usr/share/glib-2.0/schemas
+ICONDIR=/usr/share/icons
+
+if [ -x /usr/bin/glib-compile-schemas ] && [ -d "$SCHEMADIR" ]; then
+  /usr/bin/glib-compile-schemas "$SCHEMADIR" || true
+fi
+
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  for d in "$ICONDIR"/*; do
+    if [ -d "$d" ]; then
+      /usr/bin/gtk-update-icon-cache -f -t "$d" || true
+    fi
+  done
+fi
+
+exit 0

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=V2-alpha Studio
+Comment=V2-alpha Studio Wayland session
+Exec=/usr/bin/v2-alpha-shell
+TryExec=/usr/bin/v2-alpha-shell
+Type=Application
+X-LightDM-DesktopName=V2-alpha
