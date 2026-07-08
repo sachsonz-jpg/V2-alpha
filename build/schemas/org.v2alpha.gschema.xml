@@ -1,0 +1,19 @@
+<schemalist>
+  <schema id="org.v2alpha.theme" path="/org/v2alpha/theme/">
+    <key name="accent-color" type="s">
+      <default>''</default>
+      <summary>Accent color</summary>
+      <description>Accent color for the system; empty by default</description>
+    </key>
+    <key name="global-radius" type="i">
+      <default>14</default>
+      <summary>Global radius (px)</summary>
+      <description>Global border radius in pixels for UI elements</description>
+    </key>
+    <key name="layout-density" type="s">
+      <default>'normal'</default>
+      <summary>Layout density</summary>
+      <description>One of 'compact', 'normal', 'comfortable'</description>
+    </key>
+  </schema>
+</schemalist>

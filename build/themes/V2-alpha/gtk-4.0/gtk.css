@@ -1,0 +1,12 @@
+/* Placeholder GTK4 theme file for V2-alpha
+   Replace with full gtk.css mapping design tokens to GTK style classes.
+*/
+
+@define-color fg_color #0A0A0A;
+@define-color bg_color #FFFFFF;
+
+window {
+  background-color: @bg_color;
+}
+
+/* Add components, entries, buttons mapping */
