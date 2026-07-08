@@ -1,12 +1,257 @@
-/* Placeholder GTK4 theme file for V2-alpha
-   Replace with full gtk.css mapping design tokens to GTK style classes.
+/* V2-alpha GTK4 theme
+   Generated: gtk.css mapping full design tokens into a GTK4-ready stylesheet.
+   Location: build/themes/V2-alpha/gtk-4.0/gtk.css
+
+   Notes:
+   - Keep tokens in tokens.json in the same directory; update both if you change the palette.
+   - This CSS focuses on neutral, monochrome styling with soft radii, subtle shadows,
+     and glass overlays. It targets common GTK widgets and provides classes you can
+     use (v2-card, v2-dock, v2-launcher, v2-thumbnail) for custom components.
+   - For accent colors, the theme leaves accent variables empty by default; use
+     gsettings or your settings app to inject an accent color into the compiled
+     theme if desired.
 */
 
-@define-color fg_color #0A0A0A;
-@define-color bg_color #FFFFFF;
+/* Color tokens (map from design tokens) */
+@define-color v2-bg #FFFFFF;
+@define-color v2-panel #F7F7F8;
+@define-color v2-surface #F2F2F3;
+@define-color v2-muted #E8E8EA;
+@define-color v2-ink #0A0A0A;
+@define-color v2-ink-2 #1A1A1A;
+@define-color v2-gray-70 #2F2F31;
+@define-color v2-gray-50 #6B6B6E;
+@define-color v2-gray-30 #9A9A9D;
+@define-color v2-gray-10 #E1E1E3;
+@define-color v2-glass rgba(255,255,255,0.6);
+@define-color v2-shadow rgba(10,10,10,0.08);
 
-window {
-  background-color: @bg_color;
+/* Accent placeholder: empty by default; settings app may replace */
+@define-color v2-accent rgba(0,0,0,0);
+
+/* Radii & spacing (notes only — not native GTK variables) */
+/* --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px; --space-m: 16px; */
+
+/* Global window background */
+window, .window {
+  background-color: @v2-bg;
+  color: @v2-ink;
 }
 
-/* Add components, entries, buttons mapping */
+/* Floating window chrome (use .v2-window on toplevel window containers) */
+.v2-window, .v2-window headerbar {
+  background-color: @v2-panel;
+  border-radius: 20px; /* radius-lg */
+  box-shadow: 0 12px 30px rgba(10,10,10,0.08);
+  padding: 16px;
+}
+
+/* Title bar / headerbar */
+.header-bar, headerbar {
+  background-color: transparent; /* title bar sits inside v2-window */
+  padding: 0 6px;
+  min-height: 44px;
+  -GtkWindow-decoration: none;
+}
+
+/* Title text style */
+.header-bar .title, headerbar .title {
+  font-weight: 600;
+  font-size: 18px; /* type-h3 */
+  color: @v2-ink;
+}
+
+/* Window control dots (close/min/max) — minimal circular controls */
+.header-bar .button.close, .header-bar .button.minimize, .header-bar .button.maximize,
+.button.dot {
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid @v2-gray-10;
+  box-shadow: none;
+}
+
+.button.dot:hover {
+  background-color: rgba(0,0,0,0.03);
+}
+
+/* Cards */
+.v2-card {
+  background-color: @v2-surface;
+  border-radius: 14px; /* radius-md */
+  padding: 16px; /* space-m */
+  box-shadow: 0 6px 18px rgba(10,10,10,0.06);
+}
+.v2-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(10,10,10,0.08);
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms cubic-bezier(.2,.9,.2,1);
+}
+.v2-card.selected {
+  outline: 1px solid @v2-gray-10;
+  background-color: mix(@v2-surface, @v2-panel, 10%);
+}
+
+/* Buttons */
+button, .button {
+  background-color: transparent;
+  border-radius: 8px; /* radius-sm */
+  border: 1px solid transparent;
+  color: @v2-ink;
+  padding: 8px 12px;
+  font-weight: 500;
+}
+
+/* Primary button: subtle filled style */
+.button.primary, button.primary {
+  background-color: rgba(10,10,10,0.06);
+  color: @v2-ink;
+  border: none;
+}
+.button.primary:hover { background-color: rgba(10,10,10,0.08); }
+
+/* Secondary / outline button */
+.button.secondary, button.secondary {
+  background-color: transparent;
+  border: 1px solid @v2-gray-10;
+}
+
+/* Icon buttons */
+.icon-button, .icon-btn,
+button.icon {
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: transparent;
+  border: none;
+  padding: 8px;
+}
+.icon-button:hover { background-color: rgba(0,0,0,0.02); }
+
+/* Inputs */
+entry, .entry, .search-entry {
+  background-color: @v2-surface;
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: @v2-ink-2;
+  border: 1px solid transparent;
+}
+entry:focus, .entry:focus { border: 1px solid rgba(10,10,10,0.06); box-shadow: none; }
+
+/* Search bar large style for launcher */
+.search-bar {
+  background-color: @v2-panel;
+  border-radius: 20px; /* radius-lg */
+  padding: 12px 16px;
+  min-height: 60px;
+  border: 1px solid @v2-gray-10;
+}
+.search-bar entry { background: transparent; border: none; padding: 0; }
+
+/* Sidebar */
+.v2-sidebar {
+  background-color: @v2-panel;
+  border-right: 1px solid @v2-gray-10;
+  min-width: 260px;
+  padding-top: 12px;
+}
+.v2-sidebar .item {
+  padding: 12px 16px;
+  color: @v2-gray-70;
+}
+.v2-sidebar .item:selected, .v2-sidebar .item.active {
+  background-color: @v2-glass;
+  border-radius: 12px;
+  color: @v2-ink;
+}
+
+/* Dock */
+.v2-dock {
+  background-color: @v2-glass;
+  border-radius: 999px; /* pill */
+  padding: 8px 16px;
+  box-shadow: 0 6px 18px rgba(10,10,10,0.06);
+}
+.v2-dock .app-icon {
+  width: 28px; height: 28px;
+  margin: 4px;
+}
+.v2-dock .app-icon:hover { transform: translateY(-4px); }
+
+/* Launcher grid */
+.v2-launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 18px;
+}
+.v2-launcher-item {
+  background-color: @v2-surface;
+  padding: 12px;
+  border-radius: 14px;
+  text-align: center;
+}
+.v2-launcher-item .icon-wrap {
+  width: 110px; height: 110px; display: flex; align-items:center; justify-content:center;
+  border-radius: 20px; background: transparent; border: 1px solid transparent;
+}
+.v2-launcher-item:hover { transform: translateY(-6px); }
+
+/* File thumbnails */
+.v2-thumbnail {
+  background-color: @v2-surface;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(10,10,10,0.06);
+}
+.v2-thumbnail img { display:block; width:100%; height:auto; }
+.v2-thumbnail .thumb-overlay { display:none; }
+.v2-thumbnail:hover .thumb-overlay { display:block; background: rgba(0,0,0,0.04); }
+
+/* List and selection */
+.listbox row, .listbox row:odd { background: transparent; }
+.row:selected, .listbox row:selected { background-color: @v2-glass; border-radius: 10px; }
+
+/* Tooltip */
+.tooltip {
+  background-color: rgba(0,0,0,0.78);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* Popover / Modal */
+.popover, .popover .frame, dialog {
+  background-color: @v2-panel;
+  border-radius: 20px;
+  box-shadow: 0 24px 48px rgba(10,10,10,0.10);
+}
+
+/* Notebook / Tabs */
+.notebook tab {
+  background: transparent; color: @v2-gray-70; padding: 10px 14px; border-radius: 8px;
+}
+.notebook tab:selected { background: @v2-surface; color: @v2-ink; }
+
+/* Scrollbars — subtle */
+scrollbar slider, .scrollbar slider {
+  background: rgba(0,0,0,0.06);
+  border-radius: 999px;
+}
+scrollbar slider:hover { background: rgba(0,0,0,0.08); }
+
+/* Focus ring (accessible) */
+*:focus {
+  outline: none; /* replace with explicit focus ring styles below where needed */
+}
+.button:focus, .icon-button:focus, entry:focus {
+  box-shadow: 0 0 0 2px rgba(10,10,10,0.08);
+  border-radius: 8px;
+}
+
+/* Reduced-motion preference: disable transforms */
+@media (prefers-reduced-motion: reduce) {
+  .v2-card, .v2-dock .app-icon, .v2-launcher-item, .v2-thumbnail { transition: none; transform: none; }
+}
+
+/* End of V2-alpha GTK styles - extend as needed for specific widgets */
