@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atelier OS - Interactive Studio Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-theme="paper">
+    <svg class="sprite" aria-hidden="true">
+      <symbol id="icon-studio" viewBox="0 0 24 24">
+        <rect x="4" y="4" width="6" height="6" rx="1.5"></rect>
+        <rect x="14" y="4" width="6" height="6" rx="1.5"></rect>
+        <rect x="4" y="14" width="6" height="6" rx="1.5"></rect>
+        <rect x="14" y="14" width="6" height="6" rx="1.5"></rect>
+      </symbol>
+      <symbol id="icon-projects" viewBox="0 0 24 24">
+        <path d="M4 7h16M4 12h16M4 17h16"></path>
+        <path d="M7 4v16M17 4v16"></path>
+      </symbol>
+      <symbol id="icon-launcher" viewBox="0 0 24 24">
+        <path d="M9 9H7.5a3 3 0 1 1 3-3v12a3 3 0 1 1-3-3H9"></path>
+        <path d="M15 9h1.5a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H15"></path>
+        <path d="M9 12h6"></path>
+      </symbol>
+      <symbol id="icon-files" viewBox="0 0 24 24">
+        <path d="M3.5 7.5h7l2 2h8v9.5h-17z"></path>
+        <path d="M3.5 7.5v-2h6l2 2"></path>
+      </symbol>
+      <symbol id="icon-board" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8"></circle>
+        <path d="M14.5 9.5 10 14l-.5-4.5z"></path>
+      </symbol>
+      <symbol id="icon-settings" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"></path>
+      </symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="6"></circle>
+        <path d="M15 15l5 5"></path>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14"></path>
+      </symbol>
+      <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <path d="M7 17 17 7M9 7h8v8"></path>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="M5 12.5 10 17l9-10"></path>
+      </symbol>
+    </svg>
+
+    <header class="menubar" aria-label="System menu bar">
+      <nav class="menu-left" aria-label="Application menu">
+        <strong>Atelier OS</strong>
+        <span>File</span>
+        <span>Edit</span>
+        <span>View</span>
+        <span>Window</span>
+      </nav>
+      <nav class="menu-right" aria-label="System status">
+        <button class="menubar-icon" data-open="launcher" aria-label="Search">
+          <svg><use href="#icon-search"></use></svg>
+        </button>
+        <span>Paper</span>
+        <span>Wi-Fi</span>
+        <span>84%</span>
+        <time>Wed 08 Jul / 10:24</time>
+      </nav>
+    </header>
+
+    <main class="desktop" aria-label="Atelier OS desktop">
+      <section class="view active" id="studio" data-view-panel="studio" aria-label="Studio overview">
+        <article class="window studio-window">
+          <header class="window-bar">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <div class="window-title"><strong>Studio</strong><span>Ava Moreno</span></div>
+            <div class="window-actions">
+              <button data-open="launcher">Search</button>
+              <button class="primary" data-open="board">
+                <svg><use href="#icon-arrow"></use></svg>
+                Continue
+              </button>
+            </div>
+          </header>
+
+          <div class="studio-content">
+            <section class="studio-heading">
+              <p class="kicker">Today</p>
+              <h1>Your <em>studio.</em></h1>
+              <p>One active project, three prepared actions, and no loose files waiting for attention.</p>
+            </section>
+
+            <section class="studio-grid">
+              <article class="panel active-project span-8">
+                <div class="project-art">
+                  <div class="edition">Vol.3</div>
+                  <span class="project-tag">Cover system</span>
+                </div>
+                <div class="project-info">
+                  <p class="kicker">Active project</p>
+                  <h2>Aperture</h2>
+                  <p class="project-copy">Editorial system for a print magazine. Cover direction is locked; type and export checks remain.</p>
+                  <div class="metric-row">
+                    <span><strong>24</strong> spreads</span>
+                    <span><strong>18</strong> assets</span>
+                    <span><strong>72%</strong> complete</span>
+                  </div>
+                  <div class="progress-line"><i style="width: 72%"></i></div>
+                  <div class="button-row">
+                    <button class="primary" data-open="board">Open workspace</button>
+                    <button data-open="files">View files</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="panel focus-panel span-4">
+                <div class="panel-head">
+                  <p class="kicker">Focus queue</p>
+                  <span id="task-count">3 left</span>
+                </div>
+                <div class="timer-block">
+                  <span class="timer-ring" id="timer-ring"></span>
+                  <div>
+                    <strong id="timer-value">25:00</strong>
+                    <p id="timer-label">Cover polish</p>
+                  </div>
+                </div>
+                <div class="task-list" id="task-list">
+                  <button class="task-item" data-task>
+                    <span></span>
+                    Check cover contrast
+                  </button>
+                  <button class="task-item" data-task>
+                    <span></span>
+                    Export proof PDF
+                  </button>
+                  <button class="task-item" data-task>
+                    <span></span>
+                    Archive unused references
+                  </button>
+                </div>
+                <div class="button-row">
+                  <button class="primary" id="timer-toggle">Start</button>
+                  <button id="timer-reset">Reset</button>
+                </div>
+              </article>
+
+              <article class="panel palette-panel span-4">
+                <div class="panel-head">
+                  <p class="kicker">Project palette</p>
+                  <span id="palette-name">Paper white</span>
+                </div>
+                <div class="swatch-row" id="palette-swatches">
+                  <button class="swatch active" style="--swatch: #f7f7f4" data-name="Paper white"></button>
+                  <button class="swatch" style="--swatch: #d7d6d1" data-name="Warm grey"></button>
+                  <button class="swatch" style="--swatch: #8d8d88" data-name="Stone"></button>
+                  <button class="swatch" style="--swatch: #3a3a38" data-name="Graphite"></button>
+                  <button class="swatch" style="--swatch: #101010" data-name="Ink"></button>
+                </div>
+                <p class="panel-note">Applied to Aperture / Cover.</p>
+                <button data-open="settings">Edit system color</button>
+              </article>
+
+              <article class="panel asset-panel span-4">
+                <div class="panel-head">
+                  <p class="kicker">Assets ready</p>
+                  <span>18 items</span>
+                </div>
+                <div class="asset-stack">
+                  <button data-open="files"><span></span>cover-a.tiff<em>24 MB</em></button>
+                  <button data-open="files"><span></span>spread-01.psd<em>58 MB</em></button>
+                  <button data-open="files"><span></span>type-test.otf<em>1 MB</em></button>
+                </div>
+              </article>
+
+              <article class="panel export-panel span-4">
+                <div class="panel-head">
+                  <p class="kicker">Export status</p>
+                  <span>2 pending</span>
+                </div>
+                <div class="export-list">
+                  <button data-toast="Proof PDF queued">
+                    <strong>Proof PDF</strong>
+                    <span><i style="width: 64%"></i></span>
+                  </button>
+                  <button data-toast="Print package opened">
+                    <strong>Print package</strong>
+                    <span><i style="width: 32%"></i></span>
+                  </button>
+                </div>
+              </article>
+            </section>
+          </div>
+        </article>
+      </section>
+
+      <section class="view" id="projects" data-view-panel="projects" aria-label="Projects">
+        <article class="window stage-window">
+          <header class="window-bar">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <div class="window-title"><strong>Projects</strong><span>Studio archive</span></div>
+            <div class="window-actions">
+              <button>Import</button>
+              <button class="primary" data-toast="New project created">
+                <svg><use href="#icon-plus"></use></svg>
+                New project
+              </button>
+            </div>
+          </header>
+          <div class="stage-body">
+            <header class="page-heading">
+              <p class="kicker">Overview</p>
+              <h1>Your <em>work.</em></h1>
+            </header>
+            <div class="quick-grid">
+              <button data-toast="Canvas preset opened"><span class="mini-icon">C</span><strong>New Canvas</strong><small>Illustration</small></button>
+              <button data-toast="Palette preset opened"><span class="mini-icon">P</span><strong>New Palette</strong><small>Color system</small></button>
+              <button data-toast="Type study opened"><span class="mini-icon">T</span><strong>Type Study</strong><small>Typography</small></button>
+              <button data-open="board"><span class="mini-icon">M</span><strong>Moodboard</strong><small>References</small></button>
+            </div>
+            <div class="project-grid">
+              <button class="project-card" data-open="board">
+                <span class="poster serif">Ap.</span>
+                <strong>Aperture Vol.3</strong>
+                <small>Editorial / 72%</small>
+              </button>
+              <button class="project-card" data-toast="Northwind selected">
+                <span class="poster dot-grid"></span>
+                <strong>Northwind Identity</strong>
+                <small>Brand system / 44%</small>
+              </button>
+              <button class="project-card" data-toast="Field Notes selected">
+                <span class="poster lines"></span>
+                <strong>Field Notes</strong>
+                <small>Photography / 91%</small>
+              </button>
+              <button class="project-card" data-toast="Maree Basse selected">
+                <span class="poster circle"></span>
+                <strong>Maree Basse</strong>
+                <small>Fashion / 28%</small>
+              </button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="view" id="launcher" data-view-panel="launcher" aria-label="Launcher">
+        <article class="window stage-window launcher-window">
+          <header class="window-bar">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <div class="window-title"><strong>Launcher</strong><span>Command Space</span></div>
+          </header>
+          <div class="stage-body">
+            <label class="search-field">
+              <svg><use href="#icon-search"></use></svg>
+              <input id="launcher-search" type="search" placeholder="Search apps, files, actions..." />
+              <kbd>Cmd</kbd><kbd>K</kbd>
+            </label>
+            <div class="filter-row" id="launcher-filters">
+              <button class="active" data-filter="all">All <span>12</span></button>
+              <button data-filter="illustration">Illustration <span>2</span></button>
+              <button data-filter="photo">Photo <span>2</span></button>
+              <button data-filter="video">Video <span>2</span></button>
+              <button data-filter="music">Music <span>2</span></button>
+              <button data-filter="design">Design <span>4</span></button>
+            </div>
+            <div class="app-grid" id="app-grid">
+              <button class="app-card" data-category="illustration" data-app="Canvas"><span>Ca</span><strong>Canvas</strong><small>Illustration</small></button>
+              <button class="app-card" data-category="illustration" data-app="Ink"><span>In</span><strong>Ink</strong><small>Illustration</small></button>
+              <button class="app-card" data-category="design" data-app="Typeset"><span>Ty</span><strong>Typeset</strong><small>Design</small></button>
+              <button class="app-card" data-category="design" data-app="Spectrum"><span>Sp</span><strong>Spectrum</strong><small>Design</small></button>
+              <button class="app-card" data-category="photo" data-app="Aperture"><span>Ap</span><strong>Aperture</strong><small>Photo</small></button>
+              <button class="app-card" data-category="photo" data-app="Chamber"><span>Ch</span><strong>Chamber</strong><small>Photo</small></button>
+              <button class="app-card" data-category="video" data-app="Reel"><span>Re</span><strong>Reel</strong><small>Video</small></button>
+              <button class="app-card" data-category="video" data-app="Cutroom"><span>Cu</span><strong>Cutroom</strong><small>Video</small></button>
+              <button class="app-card" data-category="music" data-app="Cadence"><span>Cd</span><strong>Cadence</strong><small>Music</small></button>
+              <button class="app-card" data-category="music" data-app="Voice"><span>Vo</span><strong>Voice</strong><small>Music</small></button>
+              <button class="app-card" data-category="design" data-app="Library"><span>Li</span><strong>Library</strong><small>Assets</small></button>
+              <button class="app-card" data-category="design" data-app="Mood"><span>Mo</span><strong>Mood</strong><small>Board</small></button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="view" id="files" data-view-panel="files" aria-label="Files">
+        <article class="window stage-window files-window">
+          <header class="window-bar">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <div class="window-title"><strong>Files</strong><span id="file-location">Aperture Vol.3</span></div>
+            <div class="window-actions">
+              <button class="icon-only active" id="grid-view" aria-label="Grid view"><svg><use href="#icon-studio"></use></svg></button>
+              <button class="icon-only" id="list-view" aria-label="List view"><svg><use href="#icon-projects"></use></svg></button>
+            </div>
+          </header>
+          <div class="files-body">
+            <aside class="file-sidebar">
+              <p class="kicker">Library</p>
+              <button class="active" data-folder="Working files">Aperture Vol.3</button>
+              <button data-folder="Northwind Identity">Northwind Identity</button>
+              <button data-folder="Field Notes">Field Notes</button>
+              <button data-folder="Archive 2025">Archive 2025</button>
+              <p class="kicker">Tags</p>
+              <button data-folder="Reference">Reference</button>
+              <button data-folder="Draft">Draft</button>
+              <button data-folder="Final">Final</button>
+              <button data-folder="Print ready">Print ready</button>
+            </aside>
+            <section class="file-content">
+              <p class="breadcrumb">Projects / Aperture Vol.3 / <span id="folder-name">Working files</span></p>
+              <h2>Working files</h2>
+              <p class="muted">8 items / 502 MB</p>
+              <div class="file-grid" id="file-grid">
+                <button class="file-card"><span></span><strong>cover-a.tiff</strong><small>24 MB</small></button>
+                <button class="file-card"><span></span><strong>cover-b.tiff</strong><small>26 MB</small></button>
+                <button class="file-card"><span></span><strong>spread-01.psd</strong><small>58 MB</small></button>
+                <button class="file-card"><span></span><strong>spread-02.psd</strong><small>61 MB</small></button>
+              </div>
+              <div class="file-list" id="file-list">
+                <button><strong>notes.md</strong><span>doc</span><em>12 KB</em></button>
+                <button><strong>reel-cut.mov</strong><span>video</span><em>312 MB</em></button>
+                <button><strong>intro.wav</strong><span>audio</span><em>18 MB</em></button>
+              </div>
+            </section>
+          </div>
+        </article>
+      </section>
+
+      <section class="view" id="board" data-view-panel="board" aria-label="Aperture workspace">
+        <article class="window stage-window board-window">
+          <header class="window-bar">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <div class="window-title"><strong>Aperture Vol.3</strong><span id="board-label">Cover board</span></div>
+            <div class="window-actions">
+              <button class="primary" id="add-board-card">
+                <svg><use href="#icon-plus"></use></svg>
+                Add note
+              </button>
+            </div>
+          </header>
+          <div class="board-body">
+            <aside class="board-sidebar">
+              <p class="kicker">Boards</p>
+              <button class="active" data-board="Cover">Cover</button>
+              <button data-board="Interior">Interior</button>
+              <button data-board="Type">Type</button>
+              <button data-board="Palette">Palette</button>
+              <button data-board="Photography">Photography</button>
+              <p class="kicker">Layers</p>
+              <span>References</span>
+              <span>Sketches</span>
+              <span>Type studies</span>
+              <span>Notes</span>
+            </aside>
+            <section class="canvas" id="canvas">
+              <article class="canvas-card image-card selected" style="--x: 64px; --y: 54px;" data-title="cover-ref-01" tabindex="0">
+                <span class="image-block"></span>
+                <footer>cover-ref-01</footer>
+              </article>
+              <article class="canvas-card image-card" style="--x: 392px; --y: 92px;" data-title="cover-ref-02" tabindex="0">
+                <span class="image-block dark"></span>
+                <footer>cover-ref-02</footer>
+              </article>
+              <article class="canvas-card type-card" style="--x: 560px; --y: 270px;" data-title="Instrument Serif" tabindex="0">
+                <strong>Aa</strong>
+                <footer>Instrument Serif / Italic</footer>
+              </article>
+              <article class="canvas-card note-card" style="--x: 180px; --y: 386px;" data-title="Direction note" tabindex="0">
+                <p>Editorial, quiet. Lean on negative space. One italic word per spread.</p>
+                <footer>Direction</footer>
+              </article>
+            </section>
+            <aside class="inspector">
+              <p class="kicker">Selection</p>
+              <h2 id="selection-title">cover-ref-01</h2>
+              <p id="selection-copy">Reference card / Cover board / edited today</p>
+              <div class="inspector-actions">
+                <button data-toast="Card pinned">Pin</button>
+                <button data-toast="Card duplicated">Duplicate</button>
+              </div>
+              <p class="kicker">Timeline</p>
+              <ol class="timeline">
+                <li class="active"><span>Today</span>Cover direction locked</li>
+                <li class="active"><span>Jul 07</span>Type study round 3</li>
+                <li><span>Jul 01</span>Kickoff</li>
+              </ol>
+            </aside>
+          </div>
+        </article>
+      </section>
+
+      <section class="view" id="settings" data-view-panel="settings" aria-label="Settings">
+        <article class="window stage-window settings-window">
+          <header class="window-bar">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <div class="window-title"><strong>Settings</strong><span>Studio</span></div>
+          </header>
+          <div class="settings-body">
+            <aside class="settings-sidebar">
+              <label class="settings-search">Search settings</label>
+              <p class="kicker">You</p>
+              <button>Account</button>
+              <p class="kicker">Hardware</p>
+              <button>Displays</button>
+              <button>Sound</button>
+              <button>Keyboard and Tablet</button>
+              <button>Network</button>
+              <p class="kicker">Studio</p>
+              <button class="active">Appearance</button>
+              <button>Creative Tools</button>
+              <button>Packages</button>
+            </aside>
+            <section class="settings-content">
+              <p class="kicker">Studio</p>
+              <h1>Appearance</h1>
+              <p class="settings-copy">Atelier is calm by default. Tune the environment to match the work in front of you.</p>
+              <p class="kicker">Theme</p>
+              <div class="theme-grid" id="theme-grid">
+                <button class="theme-card active" data-theme="paper"><span class="theme-preview paper">Aa</span><strong>Paper</strong></button>
+                <button class="theme-card" data-theme="graphite"><span class="theme-preview graphite">Aa</span><strong>Graphite</strong></button>
+                <button class="theme-card" data-theme="ink"><span class="theme-preview ink">Aa</span><strong>Ink</strong></button>
+              </div>
+              <p class="kicker">Accent</p>
+              <div class="accent-row" id="accent-row">
+                <button class="accent active" style="--accent-choice: #111111" data-accent="#111111"></button>
+                <button class="accent" style="--accent-choice: #9a6a42" data-accent="#9a6a42"></button>
+                <button class="accent" style="--accent-choice: #a85656" data-accent="#a85656"></button>
+                <button class="accent" style="--accent-choice: #4f7f49" data-accent="#4f7f49"></button>
+                <button class="accent" style="--accent-choice: #2f82ac" data-accent="#2f82ac"></button>
+              </div>
+              <div class="setting-row">
+                <div><strong>Reduce motion</strong><span>Simplify interface movement</span></div>
+                <button class="switch" aria-pressed="false"></button>
+              </div>
+              <div class="setting-row">
+                <div><strong>Show project grid</strong><span>Use dotted studio canvas</span></div>
+                <button class="switch on" aria-pressed="true"></button>
+              </div>
+            </section>
+          </div>
+        </article>
+      </section>
+
+      <nav class="dock" aria-label="Main navigation">
+        <button class="dock-button active" data-view="studio" aria-label="Studio">
+          <svg><use href="#icon-studio"></use></svg>
+        </button>
+        <button class="dock-button" data-view="projects" aria-label="Projects">
+          <svg><use href="#icon-projects"></use></svg>
+        </button>
+        <button class="dock-button" data-view="launcher" aria-label="Launcher">
+          <svg><use href="#icon-launcher"></use></svg>
+        </button>
+        <button class="dock-button" data-view="files" aria-label="Files">
+          <svg><use href="#icon-files"></use></svg>
+        </button>
+        <button class="dock-button" data-view="board" aria-label="Board">
+          <svg><use href="#icon-board"></use></svg>
+        </button>
+        <button class="dock-button" data-view="settings" aria-label="Settings">
+          <svg><use href="#icon-settings"></use></svg>
+        </button>
+      </nav>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
